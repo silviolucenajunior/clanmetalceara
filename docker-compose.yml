@@ -1,0 +1,41 @@
+version: '2'
+volumes:
+  clanmetal-mysql-volume:
+
+services:
+  clanmetal_mysql:
+    image: mysql:5.7
+    container_name: clanmetal_mysql
+    volumes:
+      - clanmetal-mysql-volume:/var/lib/mysql
+    ports:
+      - "3310:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=clanmetalceara
+      - MYSQL_DATABASE=clanmetalceara
+      - MYSQL_USER=clanmetalceara
+      - MYSQL_PASSWORD=clanmetalceara
+  clanmetal_app:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./clanmetalceara:/code
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - clanmetal_mysql
+    links:
+      - clanmetal_mysql
+  clanmetal_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: clanmetal-phpmyadmin
+    ports:
+      - "8092:80"
+    environment:
+      - UPLOAD_LIMIT=100000
+    links:
+      - clanmetal_mysql:db
+    volumes:
+    - ./php_upload.ini:/usr/local/etc/php/conf.d/uploads.ini
