@@ -5,6 +5,7 @@ class Evento(models.Model):
   flyer = models.ImageField(upload_to = 'eventos/%Y/%m/', blank = True, null = True)
   local = models.ForeignKey('Local', on_delete = models.SET_NULL, blank = True, null = True)
   nome = models.CharField(max_length = 128)
+  valor_ingresso = models.IntegerField(blank = True, null = True)
 
   data_criado = models.DateTimeField(blank = True, null = True)
   data_editado = models.DateTimeField(blank = True, null = True)
@@ -17,6 +18,7 @@ class Local(models.Model):
   fachada = models.ImageField(upload_to = 'local-evento/', blank = True, null = True)
   latitude = models.DecimalField(max_digits = 9, decimal_places = 6, blank = True, null = True)
   longitude = models.DecimalField(max_digits = 9, decimal_places = 6, blank = True, null = True)
+  nome = models.CharField(max_length = 255, blank = True, null = True)
 
   data_criado = models.DateTimeField()
   data_editado = models.DateTimeField()

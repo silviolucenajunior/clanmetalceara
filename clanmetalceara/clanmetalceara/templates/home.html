@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <title>ClanMetalCeara</title>
+
+    <link href="{{MEDIA_URL}}/css/style.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Clan Metal Ceará</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Próximos Eventos</h2>
+            <ol>
+                {% for evento in eventos %}
+                <li>
+                    <p>{{ evento.data_realizacao}}</p>
+                    <ul>
+                        <li>
+                            <strong>Local:</strong> {{ evento.local.nome }}
+                        </li>
+                        <li>
+                            <strong>Valor:</strong> {{ evento.valor_ingresso }}
+                        </li>
+                    </ul>
+                    <h3>{{ evento.nome }}</h3>
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+</body>
+
+</html>
